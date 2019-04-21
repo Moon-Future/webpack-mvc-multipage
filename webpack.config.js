@@ -25,5 +25,21 @@ module.exports = {
       },
       hash: true
     })
-  ]
+  ],
+  module: {
+    rules: [
+        /**
+         * css-loader 解析 @import 语法
+         * style-loader 把css插入的head的标签中
+         */
+        {
+          test: /\.css$/,
+          use: ['style-loader', 'css-loader']
+        },
+        {
+          test: /\.scss$/,
+          use: ['style-loader', 'css-loader', 'sass-loader']
+        }
+    ]
+  }
 }
