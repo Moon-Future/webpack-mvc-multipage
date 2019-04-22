@@ -1,5 +1,10 @@
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const OptimizeCss = require('optimize-css-assets-webpack-plugin') // 压缩css
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const pages = require('./webpack-config/entry.config.js')
+
+console.log(pages)
+// return;
 
 module.exports = {
   devServer: {
@@ -8,38 +13,65 @@ module.exports = {
     contentBase: path.join(__dirname, 'dist'),
     compress: true
   },
-  mode: 'development', // production、development
-  entry: './src/index.js',
-  output: {
-    filename: 'bundle.js',
-    path: path.join(__dirname, 'dist')
+
+  optimization: { // 优化项
+    minimizer: [
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true,
+        sourceMap: true
+      }),
+      new OptimizeCss()
+    ]
   },
 
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: './src/index.html',
-      filename: 'index.html',
-      minify: {
-        // removeAttributeQuotes: true, // 删除双引号
-        // collapseWhitespace: true // 折叠空白符
-      },
-      hash: true
-    })
-  ],
+  mode: 'production', // production、development
+
+  entry: pages.entry,
+
+  output: {
+    filename: '[name].js',
+    path: path.join(__dirname, 'dist'),
+    // publicPath: '//ajs.lotpure.cn'
+  },
+
+  plugins: require('./webpack-config/plugins.config.js'),
+  
   module: {
     rules: [
-        /**
-         * css-loader 解析 @import 语法
-         * style-loader 把css插入的head的标签中
-         */
-        {
-          test: /\.css$/,
-          use: ['style-loader', 'css-loader']
-        },
-        {
-          test: /\.scss$/,
-          use: ['style-loader', 'css-loader', 'sass-loader']
+      {
+        test: /\.js$/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              '@babel/preset-env'
+            ]
+          }
         }
+      },
+      /**
+       * postcss-loader 自动给样式增加前缀
+       * css-loader 解析 @import 语法
+       * style-loader 把css插入的head的标签中
+       */
+      {
+        test: /\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader, 
+          'css-loader',
+          'postcss-loader'
+        ]
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader',
+          'sass-loader'
+        ]
+      }
     ]
   }
 }
