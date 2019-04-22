@@ -1,5 +1,6 @@
 const path = require('path')
 const OptimizeCss = require('optimize-css-assets-webpack-plugin') // 压缩css
+const MiniCssExtractPlugin = require('mini-css-extract-plugin') // extracts CSS into separate files
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const pages = require('./webpack-config/entry.config.js')
 
@@ -36,7 +37,7 @@ module.exports = {
   },
 
   plugins: require('./webpack-config/plugins.config.js'),
-  
+
   module: {
     rules: [
       {
@@ -49,6 +50,10 @@ module.exports = {
             ]
           }
         }
+      },
+      {
+        test: /\.ejs$/,
+        loader: 'ejs-loader'
       },
       /**
        * postcss-loader 自动给样式增加前缀
