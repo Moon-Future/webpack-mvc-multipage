@@ -1,11 +1,17 @@
+const fs = require('fs')
 const path = require('path')
 const OptimizeCss = require('optimize-css-assets-webpack-plugin') // 压缩css
 const MiniCssExtractPlugin = require('mini-css-extract-plugin') // extracts CSS into separate files
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const pages = require('./webpack-config/entry.config.js')
+const rimraf = require('rimraf')
 
 console.log(pages)
 // return;
+
+rimraf('./dist', fs, function cb() {
+  console.log('dist目录已清空')
+})
 
 module.exports = {
   devServer: {
