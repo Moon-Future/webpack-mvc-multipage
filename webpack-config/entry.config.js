@@ -28,7 +28,7 @@ const pages = (entries => {
   })
   return {entry, htmlArr}
 // })(glob.sync(resolve(__dirname, '../src/project/*/*.html')))
-})(glob('./src/project/*/*.html', {sync: true}))
+})(glob('./src/project/*/*.ejs', {sync: true}))
 
 function createTemplate(content, main, index) {
   let strContent = fs.readFileSync(content, 'utf-8')
