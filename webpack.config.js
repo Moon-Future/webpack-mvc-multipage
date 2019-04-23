@@ -6,9 +6,6 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const pages = require('./webpack-config/entry.config.js')
 const rimraf = require('rimraf')
 
-console.log(pages)
-// return;
-
 rimraf('./dist', fs, function cb() {
   console.log('dist目录已清空')
 })
@@ -18,8 +15,14 @@ module.exports = {
     port: 3000,
     progress: true,
     contentBase: path.join(__dirname, 'dist'),
-    compress: true
+    compress: true,
+    hot: true
   },
+
+  watch:true,
+    watchOptions:{
+        ignored: /node_modules/
+    },
 
   optimization: { // 优化项
     minimizer: [
@@ -40,6 +43,12 @@ module.exports = {
     filename: '[name].js',
     path: path.join(__dirname, 'dist'),
     // publicPath: '//ajs.lotpure.cn'
+  },
+
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src')
+    }
   },
 
   plugins: require('./webpack-config/plugins.config.js'),
@@ -82,6 +91,10 @@ module.exports = {
           'postcss-loader',
           'sass-loader'
         ]
+      },
+      {
+        test: /\.html$/,
+        loader: 'raw-loader'
       }
     ]
   }
