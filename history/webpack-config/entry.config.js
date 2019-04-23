@@ -1,11 +1,6 @@
 const fs = require('fs')
 const path = require('path')
 const glob = require('glob')
-const rimraf = require('rimraf')
-
-rimraf('../src/template/*', fs, function cb() {
-  console.log('template目录已清空')
-})
 
 const pages = (entries => {
   let entry = {}, htmlArr = []
@@ -26,22 +21,21 @@ const pages = (entries => {
       title: '标题',
       content: fs.readFileSync(fileSplit.slice(1, length).join('/'), 'utf-8'),
       // template: `./${pageHtml}`,
-      template: createTemplate(fileSplit.slice(1, length).join('/'), `./${pageHtml}`),
+      template: createTemplate(fileSplit.slice(1, length).join('/'), `./${pageHtml}`, index),
       filename: `${fileSplit.slice(3, length).join('/').split('.')[0]}.html`,
       chunks: ['ajs/' + filePath.split('.')[0]]
     })
   })
   return {entry, htmlArr}
 // })(glob.sync(resolve(__dirname, '../src/project/*/*.html')))
-})(glob('./src/project/*/*', {sync: true}))
+})(glob('./src/project/*/*.ejs', {sync: true}))
 
-function createTemplate(content, main) {
+function createTemplate(content, main, index) {
   let strContent = fs.readFileSync(content, 'utf-8')
   let strMain = fs.readFileSync(main, 'utf-8')
-  let template = content.split('/')[content.split('/').length - 1].split('.')[0];
   strMain = strMain.replace(/<%= htmlWebpackPlugin.options.content %>/, strContent)
-  fs.writeFileSync(path.join(__dirname, `../src/template/template_${template}.ejs`), strMain)
-  return path.join(__dirname, `../src/template/template_${template}.ejs`)
+  fs.writeFileSync(path.join(__dirname, `../src/template/template_${index}.ejs`), strMain)
+  return path.join(__dirname, `../src/template/template_${index}.ejs`)
 }
 
 module.exports = pages;

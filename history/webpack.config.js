@@ -5,34 +5,9 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin') // extracts CSS 
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const pages = require('./webpack-config/entry.config.js')
 const rimraf = require('rimraf')
-const watch = require('watch')
 
 rimraf('./dist', fs, function cb() {
   console.log('dist目录已清空')
-})
-
-function createTemplate(content, main = './src/_main.ejs') {
-  let strContent = fs.readFileSync( './'+ content, 'utf-8')
-  let strMain = fs.readFileSync(main, 'utf-8')
-  let template = content.split('/')[content.split('/').length - 1].split('.')[0];
-  strMain = strMain.replace(/<%= htmlWebpackPlugin.options.content %>/, strContent)
-  fs.writeFileSync(path.join(__dirname, `./src/template/template_${template}.ejs`), strMain)
-  return path.join(__dirname, `./src/template/template_${template}.ejs`)
-}
-
-watch.watchTree('./src/project', function (f, curr, prev) {
-  if (typeof f == "object" && prev === null && curr === null) {
-    // Finished walking the tree
-  } else if (prev === null) {
-    // f is a new file
-    createTemplate(f);
-  } else if (curr.nlink === 0) {
-    // f was removed
-  } else {
-    console.log('f', f)
-    // f was changed
-    createTemplate(f);
-  }
 })
 
 module.exports = {
@@ -44,11 +19,10 @@ module.exports = {
     hot: true
   },
 
-  // watch: true,
-  // watchOptions: {
-  //   aggregateTimeout: 500,
-  //   ignored: /node_modules/
-  // },
+  watch:true,
+    watchOptions:{
+        ignored: /node_modules/
+    },
 
   optimization: { // 优化项
     minimizer: [
