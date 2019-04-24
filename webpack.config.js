@@ -14,7 +14,7 @@ rimraf('./dist', fs, function cb() {
 function createTemplate(content, main = './src/_main.ejs') {
   let strContent = fs.readFileSync( './'+ content, 'utf-8')
   let strMain = fs.readFileSync(main, 'utf-8')
-  let template = content.split('/')[content.split('/').length - 1].split('.')[0];
+  let template = content.split('\\')[content.split('\\').length - 1].split('.')[0];
   strMain = strMain.replace(/<%= htmlWebpackPlugin.options.content %>/, strContent)
   fs.writeFileSync(path.join(__dirname, `./src/template/template_${template}.ejs`), strMain)
   return path.join(__dirname, `./src/template/template_${template}.ejs`)
@@ -117,10 +117,6 @@ module.exports = {
           'postcss-loader',
           'sass-loader'
         ]
-      },
-      {
-        test: /\.html$/,
-        loader: 'raw-loader'
       }
     ]
   }
