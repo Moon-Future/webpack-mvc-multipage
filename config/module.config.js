@@ -18,7 +18,7 @@ module.exports = {
       loader: 'ejs-loader'
     },
     /**
-     * postcss-loader 自动给样式增加前缀
+     * postcss-loader 自动给样式增加浏览器前缀
      * css-loader 解析 @import 语法
      * style-loader 把css插入的head的标签中
      */

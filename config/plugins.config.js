@@ -1,7 +1,7 @@
 const Wabpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin') // extracts CSS into separate files
-const htmlArr = require('./entry.config.js').htmlArr
+const { htmlArr } = require('./page.config.js')
 
 let configPlugins = [
   new MiniCssExtractPlugin({
