@@ -4,9 +4,9 @@ process.env.NODE_ENV = 'development'
 
 module.exports = {
   mode: process.env.NODE_ENV,
-  entry: resolve(__dirname, './config/entry.config.js'),
-  output: resolve(__dirname, './config/output.config.js'),
-  resolve: resolve(__dirname, './config/resolve.config.js'),
-  plugins: resolve(__dirname, './config/plugins.config.js'),
-  module: resolve(__dirname, './config/module.config.js')
+  entry: require('./config/entry.config.js'),
+  output: require('./config/output.config.js'),
+  resolve: require('./config/resolve.config.js'),
+  plugins: require('./config/plugins.config.js'),
+  module: require('./config/module.config.js')
 }

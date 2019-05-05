@@ -1,18 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title><%= htmlWebpackPlugin.options.title %></title>
-  </head>
-  <body>
-    <%= require('../common/header.ejs')() %>
 
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title><%= htmlWebpackPlugin.options.title %></title>
+</head>
+
+<body>
+  <div class="main-head">
+    <%= require('../common/header.ejs')() %>
+  </div>
+
+  <div class="main-content">
     <div>
   <h1>pageA index</h1>
 </div>
+  </div>
 
+  <div class="main-foot">
     <%= require('../common/footer.ejs')() %>
-  </body>
+  </div>
+</body>
+
 </html>
