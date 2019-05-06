@@ -1,6 +1,6 @@
 # webpack-mvc 传统多页面组件化开发
 
-    最近有一个项目，还是使用的传统 MVC 模式开发，完全基于jQuery，使用了基于java模板引擎velocity，页面中嵌入了大量java语法，使得前后端分离不彻底，工程打包上线苦不堪言，为实现后端为服务化，前端也得彻底从后端中分离出来。
+最近有一个项目，还是使用的传统 MVC 模式开发，完全基于jQuery，使用了基于java模板引擎velocity，页面中嵌入了大量java语法，使得前后端分离不彻底，工程打包上线苦不堪言，为实现后端为服务化，前端也得彻底从后端中分离出来。
 
 # 方案: webpack4 + ejs
 ## webpack
@@ -96,38 +96,38 @@ const pages = (entries => {
 
 ## html（ejs） 组件化
 ### 页面框架
-#### 1、主体框架 src/_main.ejs
+1、主体框架 src/_main.ejs  
 ```html
-  <!DOCTYPE html>
-  <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title><%= htmlWebpackPlugin.options.title %></title>
-  </head>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title><%= htmlWebpackPlugin.options.title %></title>
+</head>
 
-  <body>
-    <div class="main-head">
-      <%= require('../common/header.ejs')() %>
-    </div>
+<body>
+  <div class="main-head">
+    <%= require('@/common/components/header/header.ejs')() %>
+  </div>
 
-    <div class="main-content">
-      <%= htmlWebpackPlugin.options.content %>
-    </div>
+  <div class="main-content">
+    <%= htmlWebpackPlugin.options.content %>
+  </div>
 
-    <div class="main-foot">
-      <%= require('../common/footer.ejs')() %>
-    </div>
-  </body>
+  <div class="main-foot">
+    <%= require('@/common/components/footer/footer.ejs')() %>
+  </div>
+</body>
 
-  </html>
+</html>
 ```
-#### 2、公共页面
-header、footer每个页面都包含，所以放入主体框架页面内
-#### 3、页面各自部分
-各个页面只需要写自己页面的html内容即可，并且还可以引入公共组件ejs
+2、公共页面  
+header、footer每个页面都包含，所以放入主体框架页面内  
+3、页面各自部分  
+各个页面只需要写自己页面的html内容即可，并且还可以引入公共组件ejs  
 ```html
 // pageA/index.html
 <div>
@@ -136,7 +136,7 @@ header、footer每个页面都包含，所以放入主体框架页面内
 
 // pageA/login.html
 <div>
-  <%= require('../common/table.ejs')() %>
+  <%= require('@/common/components/form.ejs')() %>
   <h1>pageA login</h1>
 </div>
 ```  
@@ -408,4 +408,4 @@ module.exports = { getLanText, translateAll }
 # 结语
 至此，传统多页面组件化开发流程基本完成，可以完全脱离后台愉快的开发前端了，抛弃eclipse，拥抱vsCode。  
 此文只构建了基本的框架，中间还有很多优化点，打包速度，公共代码等等都没有去细究，等页面、代码量增加，这也是必须去研究的，路漫漫其修远兮。  
-[Guthub地址](git@github.com:Moon-Future/webpack-mvc-multipage.git) 可直接 npm run dev, npm run build 运行， 顺便求个Star 😄
+[Guthub](git@github.com:Moon-Future/webpack-mvc-multipage.git) 可直接 npm run dev, npm run build 运行， 顺便求个Star 😄
