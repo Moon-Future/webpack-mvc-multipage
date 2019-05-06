@@ -408,4 +408,4 @@ module.exports = { getLanText, translateAll }
 # 结语
 至此，传统多页面组件化开发流程基本完成，可以完全脱离后台愉快的开发前端了，抛弃eclipse，拥抱vsCode。  
 此文只构建了基本的框架，中间还有很多优化点，打包速度，公共代码等等都没有去细究，等页面、代码量增加，这也是必须去研究的，路漫漫其修远兮。  
-[Guthub](git@github.com:Moon-Future/webpack-mvc-multipage.git) 可直接 npm run dev, npm run build 运行， 顺便求个Star 😄
+[Guthub](https://github.com/Moon-Future/webpack-mvc-multipage) 可直接 npm run dev, npm run build 运行， 顺便求个Star 😄
