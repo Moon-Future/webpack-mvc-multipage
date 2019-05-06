@@ -195,6 +195,20 @@ function createTemplate(file, jsPath, entry) {
 <script src="js/common/server.api.js"></script>
 ``` 
 这里引入js的路径是最终文件压缩生成的位置（dist目录下），因为开发模式和生产环境路径有所不同，所以等下在代码中要区别不同环境去替换不同的路径。
+### 页面引入ejs组件
+```html
+// pageA/index.html
+
+<%=title 页面A %>
+
+<div>
+  <%= require('@/common/components/form.ejs')() %>
+  <h1>pageA index</h1>
+</div>
+
+<script src="js/common/util.js"></script>
+<script src="js/common/server.api.js"></script>
+``` 
 
 ## page.config.js
 ```js
