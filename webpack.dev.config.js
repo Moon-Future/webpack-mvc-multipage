@@ -2,6 +2,8 @@ const { resolve } = require('path')
 
 process.env.NODE_ENV = 'development'
 
+require('./config/watch.config.js')
+
 module.exports = {
   mode: process.env.NODE_ENV,
   devServer: require('./config/server.config.js'),
