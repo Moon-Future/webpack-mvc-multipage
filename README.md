@@ -339,3 +339,59 @@ function createTemplate(file) {
 }
 ```
 这里不再处理title和静态js入口压缩，更改了这些只能再重新 npm run dev
+
+# 国际化
+```js
+const languageProperty = require('../properties/language.properties.js')
+
+function getLanText(val) {
+  let lan = 'zh' // $.cookie('lan')
+  let str = languageProperty[val] && languageProperty[val][lan] || val
+  let defaultOpt = languageProperty[val] && languageProperty[val]['default']
+  let opts = defaultOpt && $.extend(true, [], defaultOpt)
+  opts ? opts.unshift('') : false
+  let args = opts && arguments.length === 1 ? opts : arguments
+  if (args.length > 1) {
+    let params = Array.property.slice.call(args, 1)
+    return str.replace(/{(\d+)}/g, function(curr, index) {
+      return params[index]
+    })
+  } else {
+    return str
+  }
+}
+
+function translateAll() {
+  let num = $('html').find('[lang]').length
+  let count = 0
+  if (num === 0) {
+    $('body').show()
+  }
+  $('html').find('[lang]').each(function() {
+    count += 1;
+    let lang = $(this).attr('lang')
+    if (lang === '') {
+      return;
+    }
+    let nodeName = $(this)[0].nodeName
+    let text = getLanText(lang)
+    // 简单处理，复杂的可再这里更改
+    if (nodeName === 'INPUT') {
+      $(this).attr('placeholder', text)
+    } else {
+      $(this).html(text)
+    }
+    if (count === num) {
+      $('body').show()
+    }
+  })
+}
+
+module.exports = { getLanText, translateAll }
+```
+在header.js里调用一次就可以了。
+
+# 结语
+至此，传统多页面组件化开发流程基本完成，可以完全脱离后台愉快的开发前端了，抛弃eclipse，拥抱vsCode。  
+此文只构建了基本的框架，中间还有很多优化点，打包速度，公共代码等等都没有去细究，等页面、代码量增加，这也是必须去研究的，路漫漫其修远兮。  
+[Guthub地址](git@github.com:Moon-Future/webpack-mvc-multipage.git) 可直接 npm run dev, npm run build 运行， 顺便求个Star 😄
