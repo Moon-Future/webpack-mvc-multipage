@@ -9,5 +9,21 @@ module.exports = {
       sourceMap: false
     }),
     new OptimizeCss()
-  ]
+  ],
+  // 提取公共文件
+  splitChunks: {
+    cacheGroups: {
+      common: {
+        name: 'common',
+        chunks: 'all',
+        minChunks: 2
+      },
+      vendor: {
+        name: 'vendor',
+        test: /[\\/]node_modules[\\/]/,
+        chunks: 'all',
+        minChunks: 2
+      }
+    }
+  }
 }

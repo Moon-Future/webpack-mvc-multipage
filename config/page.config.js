@@ -65,7 +65,7 @@ function createTemplate({file, jsPath, entry}) {
     title: '',
     template: '',
     filename: '',
-    chunks: [jsPath]
+    chunks: [jsPath, 'common', 'vendor']
   }
   // _main.ejs 页面主题框架，html组件化
   let mainHtml = path.resolve(__dirname, '../src/_main.ejs')

@@ -5,7 +5,7 @@ const { htmlArr } = require('./page.config.js')
 
 let configPlugins = [
   new MiniCssExtractPlugin({
-    filename: 'main.css'
+    filename: `[name].css`
   }),
   new Wabpack.ProvidePlugin({
     $: 'jquery',
